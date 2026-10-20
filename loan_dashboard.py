@@ -33,6 +33,10 @@ area_options = sorted(df['Area_Name'].dropna().unique())
 area_filter = st.sidebar.multiselect("Select Area(s):", options=area_options, default=area_options)
 df_filtered = df[df['Area_Name'].isin(area_filter)]
 
+if df_filtered.empty:
+    st.warning("Select at least one area to see the charts.")
+    st.stop()
+
 # Metrics
 st.subheader("Summary Statistics")
 st.write(df_filtered.describe())

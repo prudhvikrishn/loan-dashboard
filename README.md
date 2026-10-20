@@ -28,6 +28,15 @@ pip install -r requirements.txt
 streamlit run loan_dashboard.py
 ```
 
+## Tests
+
+`tests/test_dashboard.py` runs the app headless with Streamlit's `AppTest` and checks that it loads, that the area filter works, and that clearing the filter shows a message instead of empty charts. GitHub Actions runs them on every push.
+
+```
+pip install -r requirements.txt pytest
+pytest -q
+```
+
 ## Tech stack
 
-Python, pandas, Streamlit, seaborn, Matplotlib.
+Python, pandas, Streamlit, seaborn, Matplotlib, pytest.
