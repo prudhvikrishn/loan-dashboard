@@ -14,6 +14,9 @@ df['Loan_Amount'] = df['Loan_Amount'].fillna(df['Loan_Amount'].median())
 df['Credit_History'] = df['Credit_History'].fillna(1.0)
 df['Dependents'] = df['Dependents'].replace('3+', 3).astype(float)
 
+# Keep readable area names for the filter
+df['Area_Name'] = df['Area']
+
 # Encoding
 df['Gender'] = df['Gender'].map({'Male': 1, 'Female': 0})
 df['Married'] = df['Married'].map({'Yes': 1, 'No': 0})
@@ -26,8 +29,9 @@ df['Total_Income'] = df['Applicant_Income'] + df['Coapplicant_Income']
 st.title("Loan Data Dashboard")
 
 # Sidebar Filter
-area_filter = st.sidebar.multiselect("Select Area(s):", options=df['Area'].unique(), default=df['Area'].unique())
-df_filtered = df[df['Area'].isin(area_filter)]
+area_options = sorted(df['Area_Name'].dropna().unique())
+area_filter = st.sidebar.multiselect("Select Area(s):", options=area_options, default=area_options)
+df_filtered = df[df['Area_Name'].isin(area_filter)]
 
 # Metrics
 st.subheader("Summary Statistics")
